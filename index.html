@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordena las Palabras</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url(https://images.pexels.com/photos/28728726/pexels-photo-28728726/free-photo-of-iconic-view-of-big-ben-and-houses-of-parliament-in-london.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2);
+            background-size: cover;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+            backdrop-filter: blur(5px);
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 600px;
+            width: 90%;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+        .correct {
+            color: green;
+        }
+        .incorrect {
+            color: red;
+        }
+        #reset-button {
+            background-color: #000080;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Actividad: Ordena las Palabras</h1>
+        <p>Escribe las palabras en el orden correcto para formar oraciones.</p>
+
+        <div id="exercise">
+            <div>
+                <label>1. are / They / from / Spain</label>
+                <input type="text" id="answer1">
+            </div>
+            <div>
+                <label>2. Italian / is / She</label>
+                <input type="text" id="answer2">
+            </div>
+            <div>
+                <label>3. You / are / from / The / United States</label>
+                <input type="text" id="answer3">
+            </div>
+            <div>
+                <label>4. Mark / is / French</label>
+                <input type="text" id="answer4">
+            </div>
+            <div>
+                <label>5. We / from / Brazil / are</label>
+                <input type="text" id="answer5">
+            </div>
+            <div>
+                <label>6. Australian / friends / Your / are</label>
+                <input type="text" id="answer6">
+            </div>
+            <div>
+                <label>7. Canada / from / am / I</label>
+                <input type="text" id="answer7">
+            </div>
+            <div>
+                <label>8. They / Japanese / are / students</label>
+                <input type="text" id="answer8">
+            </div>
+            <div>
+                <label>9. Is / He / from / Mexico</label>
+                <input type="text" id="answer9">
+            </div>
+            <div>
+                <label>10. We / Chinese / are</label>
+                <input type="text" id="answer10">
+            </div>
+        </div>
+
+        <button onclick="checkAnswers()">Enviar</button>
+        <button id="reset-button" onclick="resetExercise()">Reiniciar</button>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const correctAnswers = [
+            "They are from Spain",
+            "She is Italian",
+            "You are from the United States",
+            "Mark is French",
+            "We are from Brazil",
+            "Your friends are Australian",
+            "I am from Canada",
+            "They are Japanese students",
+            "He is from Mexico",
+            "We are Chinese"
+        ];
+
+        function checkAnswers() {
+            let score = 0;
+            for (let i = 1; i <= 10; i++) {
+                let userAnswer = document.getElementById('answer' + i).value.trim();
+                const answerElement = document.getElementById('answer' + i);
+
+                // Remueve el punto final si está presente, convierte la respuesta a minúsculas para comparar
+                userAnswer = userAnswer.replace(/\.$/, '').toLowerCase();
+                const correctAnswer = correctAnswers[i - 1].toLowerCase();
+                
+                if (userAnswer === correctAnswer) {
+                    answerElement.classList.add("correct");
+                    answerElement.classList.remove("incorrect");
+                    answerElement.value += " (Correcto)";
+                    score += 10;
+                } else {
+                    answerElement.classList.add("incorrect");
+                    answerElement.classList.remove("correct");
+                    answerElement.value += " (Incorrecto: " + correctAnswers[i - 1] + ")";
+                }
+            }
+            document.getElementById("result").innerHTML = `<h2>Resultado: ${score}%</h2>`;
+        }
+
+        function resetExercise() {
+            for (let i = 1; i <= 10; i++) {
+                const answerElement = document.getElementById('answer' + i);
+                answerElement.value = '';
+                answerElement.classList.remove("correct", "incorrect");
+            }
+            document.getElementById("result").innerHTML = '';
+        }
+    </script>
+</body>
+</html>
